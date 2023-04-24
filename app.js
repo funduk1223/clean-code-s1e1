@@ -9,13 +9,13 @@
 // Event handling, user interaction is what starts the code execution.
 
 //var taskInput=document.getElementById("add-task");//Add a new task.
-var taskInput=document.querySelectorAll(".form-tasks__input")[0];//Add a new task.
+var taskInput=document.querySelectorAll(".form__input")[0];//Add a new task.
 //var addButton=document.getElementsByTagName("button")[0];//first button
-var addButton = document.querySelector(".form-tasks__button_add");// getElementsByTagName("button")[0];//first button
+var addButton = document.querySelector(".form__btn_add");// getElementsByTagName("button")[0];//first button
 //var incompleteTaskHolder=document.getElementById("incompleteTasks");//ul of #incompleteTasks
-var incompleteTaskHolder=document.querySelector(".form-tasks__list_incompleted");//ul of #incompleteTasks
+var incompleteTaskHolder=document.querySelector(".form__list_incompleted");//ul of #incompleteTasks
 //var completedTasksHolder=document.getElementById("completed-tasks");//completed-tasks
-var completedTasksHolder=document.querySelector(".form-tasks__list_completed");//ul of #incompleteTasks
+var completedTasksHolder=document.querySelector(".form__list_completed");//ul of #incompleteTasks
 
 
 
@@ -38,21 +38,21 @@ var createNewTaskElement=function(taskString){
     var deleteButtonImg=document.createElement("img");//delete button image
 
     label.innerText=taskString;
-    label.className="form-tasks__label form-tasks__text";
+    label.className="form__label form__text";
 
     //Each elements, needs appending
-    listItem.className="form-tasks__field";
+    listItem.className="form__field";
     checkBox.type="checkbox";
-    checkBox.className="form-tasks__check";
+    checkBox.className="form__check";
     editInput.type="text";
-    editInput.className="form-tasks__input form-tasks__text";
+    editInput.className="form__input form__text";
 
     editButton.innerText="Edit"; //innerText encodes special characters, HTML does not.
-    editButton.className="form-tasks__button form-tasks__button_edit";
+    editButton.className="form__btn form__btn_edit";
 
-    deleteButton.className="form-tasks__button form-tasks__button_delete";
+    deleteButton.className="form__btn form__btn_delete";
     deleteButtonImg.src="./remove.svg";
-    deleteButtonImg.className="form-tasks__button-image";
+    deleteButtonImg.className="form__btn-img";
     deleteButton.appendChild(deleteButtonImg);
 
 
@@ -90,10 +90,10 @@ var editTask=function(){
 
     var listItem=this.parentNode;
 
-    var editInput=listItem.querySelector(".form-tasks__input");
-    var label=listItem.querySelector(".form-tasks__label");
-    var editBtn=listItem.querySelector(".form-tasks__button_edit");
-    var containsClass=listItem.classList.contains("form-tasks__field_edit");
+    var editInput=listItem.querySelector(".form__input");
+    var label=listItem.querySelector(".form__label");
+    var editBtn=listItem.querySelector(".form__btn_edit");
+    var containsClass=listItem.classList.contains("form__field_edit");
     //If class of the parent is .editmode
     if(containsClass){
 
@@ -106,8 +106,8 @@ var editTask=function(){
         editBtn.innerText="Save";
     }
 
-    //toggle .form-tasks__field_edit on the parent.
-    listItem.classList.toggle("form-tasks__field_edit");
+    //toggle .form__field_edit on the parent.
+    listItem.classList.toggle("form__field_edit");
 };
 
 
@@ -163,9 +163,9 @@ addButton.addEventListener("click",ajaxRequest);
 var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
     console.log("bind list item events");
 //select ListItems children
-    var checkBox=taskListItem.querySelector(".form-tasks__check");
-    var editButton=taskListItem.querySelector(".form-tasks__button_edit");
-    var deleteButton=taskListItem.querySelector(".form-tasks__button_delete");
+    var checkBox=taskListItem.querySelector(".form__check");
+    var editButton=taskListItem.querySelector(".form__btn_edit");
+    var deleteButton=taskListItem.querySelector(".form__btn_delete");
 
 
     //Bind editTask to edit button.
