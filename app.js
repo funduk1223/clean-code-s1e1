@@ -8,17 +8,22 @@
 
 // Event handling, user interaction is what starts the code execution.
 
-var taskInput=document.getElementById("new-task");//Add a new task.
-var addButton=document.getElementsByTagName("button")[0];//first button
-var incompleteTaskHolder=document.getElementById("incompleteTasks");//ul of #incompleteTasks
-var completedTasksHolder=document.getElementById("completed-tasks");//completed-tasks
+//var taskInput=document.getElementById("add-task");//Add a new task.
+var taskInput=document.querySelectorAll(".form-tasks__input")[0];//Add a new task.
+//var addButton=document.getElementsByTagName("button")[0];//first button
+var addButton = document.querySelector(".form-tasks__button_add");// getElementsByTagName("button")[0];//first button
+//var incompleteTaskHolder=document.getElementById("incompleteTasks");//ul of #incompleteTasks
+var incompleteTaskHolder=document.querySelector(".form-tasks__list_incompleted");//ul of #incompleteTasks
+//var completedTasksHolder=document.getElementById("completed-tasks");//completed-tasks
+var completedTasksHolder=document.querySelector(".form-tasks__list_completed");//ul of #incompleteTasks
+
 
 
 //New task list item
 var createNewTaskElement=function(taskString){
 
     var listItem=document.createElement("li");
-
+    
     //input (checkbox)
     var checkBox=document.createElement("input");//checkbx
     //label
@@ -33,18 +38,21 @@ var createNewTaskElement=function(taskString){
     var deleteButtonImg=document.createElement("img");//delete button image
 
     label.innerText=taskString;
-    label.className='task';
+    label.className="form-tasks__label form-tasks__text";
 
     //Each elements, needs appending
+    listItem.className="form-tasks__field";
     checkBox.type="checkbox";
+    checkBox.className="form-tasks__check";
     editInput.type="text";
-    editInput.className="task";
+    editInput.className="form-tasks__input form-tasks__text";
 
     editButton.innerText="Edit"; //innerText encodes special characters, HTML does not.
-    editButton.className="edit";
+    editButton.className="form-tasks__button form-tasks__button_edit";
 
-    deleteButton.className="delete";
-    deleteButtonImg.src='./remove.svg';
+    deleteButton.className="form-tasks__button form-tasks__button_delete";
+    deleteButtonImg.src="./remove.svg";
+    deleteButtonImg.className="form-tasks__button-image";
     deleteButton.appendChild(deleteButtonImg);
 
 
@@ -61,7 +69,7 @@ var createNewTaskElement=function(taskString){
 
 var addTask=function(){
     console.log("Add Task...");
-    //Create a new list item with the text from the #new-task:
+    //Create a new list item with the text from the #add-task:
     if (!taskInput.value) return;
     var listItem=createNewTaskElement(taskInput.value);
 
@@ -82,10 +90,10 @@ var editTask=function(){
 
     var listItem=this.parentNode;
 
-    var editInput=listItem.querySelector('input[type=text]');
-    var label=listItem.querySelector("label");
-    var editBtn=listItem.querySelector(".edit");
-    var containsClass=listItem.classList.contains("editMode");
+    var editInput=listItem.querySelector(".form-tasks__input");
+    var label=listItem.querySelector(".form-tasks__label");
+    var editBtn=listItem.querySelector(".form-tasks__button_edit");
+    var containsClass=listItem.classList.contains("form-tasks__field_edit");
     //If class of the parent is .editmode
     if(containsClass){
 
@@ -98,8 +106,8 @@ var editTask=function(){
         editBtn.innerText="Save";
     }
 
-    //toggle .editmode on the parent.
-    listItem.classList.toggle("editMode");
+    //toggle .form-tasks__field_edit on the parent.
+    listItem.classList.toggle("form-tasks__field_edit");
 };
 
 
@@ -147,7 +155,7 @@ var ajaxRequest=function(){
 
 
 //Set the click handler to the addTask function.
-addButton.onclick=addTask;
+addButton.onclick = addTask;
 addButton.addEventListener("click",addTask);
 addButton.addEventListener("click",ajaxRequest);
 
@@ -155,9 +163,9 @@ addButton.addEventListener("click",ajaxRequest);
 var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
     console.log("bind list item events");
 //select ListItems children
-    var checkBox=taskListItem.querySelector("input[type=checkbox]");
-    var editButton=taskListItem.querySelector("button.edit");
-    var deleteButton=taskListItem.querySelector("button.delete");
+    var checkBox=taskListItem.querySelector(".form-tasks__check");
+    var editButton=taskListItem.querySelector(".form-tasks__button_edit");
+    var deleteButton=taskListItem.querySelector(".form-tasks__button_delete");
 
 
     //Bind editTask to edit button.
@@ -188,7 +196,7 @@ for (var i=0; i<completedTasksHolder.children.length;i++){
 
 
 
-// Issues with usability don't get seen until they are in front of a human tester.
+// Issues with usability don"t get seen until they are in front of a human tester.
 
 //prevent creation of empty tasks.
 
